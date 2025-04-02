@@ -1,6 +1,6 @@
 # HT Categories Client
 
-A Dart client interface package for managing news categories within the Headlines Toolkit ecosystem. This package defines the abstract client contract (`HtCategoriesClient`), data models (`Category`), and specific exceptions for category operations.
+A Dart client interface package for managing news categories. This package defines the abstract client contract (`HtCategoriesClient`), data models (`Category`), and specific exceptions for category operations.
 
 It is designed to be implemented by concrete clients that interact with different data sources (e.g., APIs, local databases).
 
