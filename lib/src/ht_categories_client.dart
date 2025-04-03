@@ -89,12 +89,16 @@ abstract class HtCategoriesClient {
   /// {@macro ht_categories_client}
   const HtCategoriesClient();
 
-  /// Fetches all available news categories.
+  /// Fetches a paginated list of available news categories.
   ///
-  /// Returns a list of [Category] objects.
+  /// Optionally accepts a [limit] to control the number of categories returned
+  /// per page and a [startAfterId] to fetch the next page starting after the
+  /// category with the specified ID.
+  ///
+  /// Returns a list of [Category] objects for the requested page.
   ///
   /// Throws a [GetCategoriesFailure] if an unexpected error occurs during fetching.
-  Future<List<Category>> getCategories();
+  Future<List<Category>> getCategories({int? limit, String? startAfterId});
 
   /// Fetches a single news category by its unique [id].
   ///
