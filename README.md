@@ -1,5 +1,9 @@
 # HT Categories Client
 
+![coverage: percentage](https://img.shields.io/badge/coverage-94-green)
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis) 
+[![License: PolyForm Free Trial](https://img.shields.io/badge/License-PolyForm%20Free%20Trial-blue)](https://polyformproject.org/licenses/free-trial/1.0.0)
+
 A Dart client interface package for managing news categories. This package defines the abstract client contract (`HtCategoriesClient`), data models (`Category`), and specific exceptions for category operations.
 
 It is designed to be implemented by concrete clients that interact with different data sources (e.g., APIs, local databases).
@@ -116,3 +120,6 @@ Then, run `flutter pub get` or `dart pub get`.
     }
     ```
 
+## License
+
+This package is licensed under the [PolyForm Free Trial](LICENSE). Please review the terms before use.

@@ -68,19 +68,25 @@ void main() {
       expect(exception.toString(), startsWith('CategoryException:'));
     });
 
-    test('CategoryNotFoundFailure can be instantiated and has correct toString',
-        () {
-      final exception = CategoryNotFoundFailure(categoryId, error, stackTrace);
-      expect(exception, isNotNull);
-      expect(exception.id, equals(categoryId));
-      expect(exception.error, equals(error));
-      expect(exception.stackTrace, equals(stackTrace));
-      expect(
-        exception.toString(),
-        equals(
-          'CategoryNotFoundFailure: Category with ID "$categoryId" not found. Error: $error',
-        ),
-      );
-    });
+    test(
+      'CategoryNotFoundFailure can be instantiated and has correct toString',
+      () {
+        final exception = CategoryNotFoundFailure(
+          categoryId,
+          error,
+          stackTrace,
+        );
+        expect(exception, isNotNull);
+        expect(exception.id, equals(categoryId));
+        expect(exception.error, equals(error));
+        expect(exception.stackTrace, equals(stackTrace));
+        expect(
+          exception.toString(),
+          equals(
+            'CategoryNotFoundFailure: Category with ID "$categoryId" not found. Error: $error',
+          ),
+        );
+      },
+    );
   });
 }

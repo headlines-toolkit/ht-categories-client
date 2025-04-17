@@ -1,9 +1,8 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
-
-part 'category.g.dart';
 
 /// {@template category}
 /// Represents a news category.
@@ -12,21 +11,33 @@ part 'category.g.dart';
 /// The [id] is automatically generated using UUID v4 if not provided.
 /// {@endtemplate}
 @immutable
-@JsonSerializable()
 class Category extends Equatable {
   /// {@macro category}
   ///
   /// If an [id] is not provided, a UUID v4 will be generated.
-  Category({
-    required this.name,
-    String? id,
-    this.description,
-    this.iconUrl,
-  }) : id = id ?? const Uuid().v4();
+  Category({required this.name, String? id, this.description, this.iconUrl})
+    : id = id ?? const Uuid().v4();
 
-  /// Creates a Category from a JSON map.
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  /// Creates a Category instance from a JSON map.
+  ///
+  /// Throws a [FormatException] if the JSON map is invalid.
+  factory Category.fromJson(Map<String, dynamic> json) {
+    final id = json['id'] as String?;
+    final name = json['name'] as String?;
+    final description = json['description'] as String?;
+    final iconUrl = json['icon_url'] as String?;
+
+    if (name == null) {
+      throw const FormatException('Missing required field: "name"');
+    }
+
+    return Category(
+      id: id, // Constructor handles null ID generation
+      name: name,
+      description: description,
+      iconUrl: iconUrl,
+    );
+  }
 
   /// The unique identifier of the category.
   final String id;
@@ -35,15 +46,26 @@ class Category extends Equatable {
   final String name;
 
   /// An optional description for the category.
-  @JsonKey(includeIfNull: false)
   final String? description;
 
   /// An optional URL for an icon representing the category.
-  @JsonKey(name: 'icon_url', includeIfNull: false)
   final String? iconUrl;
 
   /// Converts this Category instance to a JSON map.
-  Map<String, dynamic> toJson() => _$CategoryToJson(this);
+  ///
+  /// Optional fields ([description], [iconUrl]) are included only if they
+  /// are not null.
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      if (description != null) 'description': description,
+      if (iconUrl != null) 'icon_url': iconUrl,
+    };
+  }
+
+  /// Converts this Category instance to a JSON string.
+  String toJsonString() => jsonEncode(toJson());
 
   /// Creates a copy of this Category but with the given fields replaced with
   /// the new values.
